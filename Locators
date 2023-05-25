@@ -15,28 +15,28 @@ driver.maximize_window()
 # open the url
 driver.get('https://www.amazon.com/ap/signin?openid.pape.max_auth_age=0&openid.return_to=https%3A%2F%2Fwww.amazon.com%2Fref%3Dnav_signin&openid.identity=http%3A%2F%2Fspecs.openid.net%2Fauth%2F2.0%2Fidentifier_select&openid.assoc_handle=usflex&openid.mode=checkid_setup&openid.claimed_id=http%3A%2F%2Fspecs.openid.net%2Fauth%2F2.0%2Fidentifier_select&openid.ns=http%3A%2F%2Fspecs.openid.net%2Fauth%2F2.0&')''
 
-#by Xpath Amazon logo
-driver.find_element(By.Xpath, "//i[@class='a-icon a-icon-logo']")
+#by XPATH Amazon logo
+driver.find_element(By.XPATH, "//i[@class='a-icon a-icon-logo']")
 
 #by ID Email Field
 driver.find_element(By.ID, 'ap_email')
 
-#by Xpath Email Field
-driver.find_element(By.Xpath, "//input[@type='email']")
+#by XPATH Email Field
+driver.find_element(By.XPATH, "//input[@type='email']")
 
-#by Xpath continue button
+#by XPATH continue button
 driver.find_element(By.XPATH, "//input[@class='a-button-input']")
 
-#by Xpath need help
+#by XPATH need help
 driver.find_element(By.XPATH, "//span[@class='a-expander-prompt']")
 
-#by Xpath forgot password link
+#by XPATH forgot password link
 driver.find_element(By.XPATH, "//a[@class='a-link-normal']")
 
-#by Xpath other issues with sign in
+#by XPATH other issues with sign in
 driver.find_element(By.XPATH, "//a[@class='a-link-normal']")
 
-by id #by Xpath other issues with sign in
+ #by ID other issues with sign in
 driver.find_element(By.ID, 'ap-other-signin-issues-link')
 
 #by Xpath Create your Amazon account button
