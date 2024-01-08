@@ -8,6 +8,19 @@ from selenium.webdriver.support.wait import WebDriverWait
 import time
 from selenium.webdriver.support import expected_conditions as EC
 
+
+SEARCH_FIELD = (By.ID, 'search')
+SEARCH_BTN = (By.CSS_SELECTOR, "[data-test='@web/Search/SearchButton']")
+
+HEADER = (By.CSS_SELECTOR, "[class*='UtilityHeaderWrapper']")
+HEADER_LINKS = (By.CSS_SELECTOR, "[data-test*='@web/GlobalHeader/UtilityHeader/']")
+SIGN_IN_BTN = (By.CSS_SELECTOR, "[data-test='@web/AccountLink']")
+
+
+
+
+
+
 def browser_init(context):
     """
     :param context: Behave context
@@ -25,7 +38,7 @@ def open_target_page(context):
     context.driver.get('https://www.target.com/')
 
 @when('search for a {product}')
-def step_when_search_and_add_to_cart(context, product):
+def step_when_search_product(context, product):
     search_box = context.driver.find_element(By.ID, 'search').send_keys(product)
     context.driver.find_element(By.CSS_SELECTOR, '[data-test="@web/Search/SearchButton"]').click()
     sleep(3)
@@ -44,8 +57,7 @@ def add_to_cart(context, product):
 
 @then('Verify that the {product} is in the cart')
 def verify_product_in_cart(context, product):
-    product_cart = context.driver.find_element(By.XPATH,
-                                               '//a[@href="/cart" and contains(@class, "styles__StyledBaseButtonInternal") and contains(text(), "View cart & check out")]')
+    product_cart = context.driver.find_element(By.XPATH, '//a[@href="/cart" and contains(@class, "styles__StyledBaseButtonInternal") and contains(text(), "View cart & check out")]')
     product_cart.click()
 
     # Get the text content of the cart page
@@ -61,5 +73,30 @@ def verify_product_in_cart(context, product):
     assert len(cart_items) > 0, "Product not found in the cart"
 
     print(f"Number of cart items found: {len(cart_items)}")
+
+
+@when('search for {product}')
+def step_when_search_for_product(context, product):
+    search_box = context.driver.find_element(By.ID, 'search').send_keys(product)
+    context.driver.find_element(By.CSS_SELECTOR, '[data-test="@web/Search/SearchButton"]').click()
+
+
+@then('verify that every product has a name and an image')
+def verify_all_product(context):
+    context.driver.execute_script("window.scroll(0,2000)","")
+    sleep(2)
+    context.driver.execute_script("window.scroll(0,2000)", "")
+
+
+
+    all_products = context.driver.find_elements(By.CSS_SELECTOR, "[data-test='@web/site-top-of-funnel/ProductCardWrapper']")
+    for product in all_products:
+        title = product.find_element(By.CSS_SELECTOR, "[data-test='product-title']").text
+        print(title)
+        assert title.strip() != '', 'product title not shown'
+        image_element = product.find_element(By.CSS_SELECTOR, "[data-test='@web/ProductCard/ProductCardImage/primary']")
+        assert image_element.is_displayed(), 'Product image not shown'
+
+
 
 

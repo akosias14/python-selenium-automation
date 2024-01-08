@@ -18,9 +18,10 @@ def browser_init(context):
     context.driver.wait = WebDriverWait(context.driver, 15)
     context.driver.maximize_window()
     context.driver.implicitly_wait(4)
-@given('Open target product A-88345426 page')
-def step_given_user_on_product_page(context):
-    context.driver.get('https://www.target.com/p/A-88345426')
+
+@given('Open target product {product_id} page')
+def step_given_user_on_product_page(context, product_id):
+    context.driver.get(f'https://www.target.com/p/{product_id}')
     sleep(6)
 @when('the user selects each color on the page')
 def step_when_user_selects_each_color(context):
